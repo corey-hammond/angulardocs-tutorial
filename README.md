@@ -1,6 +1,6 @@
 # Angular Docs Tutorial (angular.io)
 
-# Notes
+# Fundamentals of Angular
 
 ## Template Syntax
 
@@ -56,6 +56,18 @@ app-root is the application shell, which is the first component to load and is t
 Use property binding to pass data as input to the child component
 : <app-product-alerts [product]="product"></app-product-alerts>
 : The product-alerts component takes a product as input from the product-list component. 
+
+## Output
+
+* A child component emits an event to the parent component; parent component acts on that event
+* In child component class, define a property with an @Output decorator and an instance of EventEmitter() - @Output() notify = new EventEmitter();
+* In child component, add an event binding call the property's .emit() method - (click)="notify.emit()"
+* Parent component acts on event, not child, so you define a method in the parent component class
+* Finally, bind the child's output component to the parent's new method - (notify)="onNotify()"
+
+# Routing
+
+## Registering a Route
 
 
 
