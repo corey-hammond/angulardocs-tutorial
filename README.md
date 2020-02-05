@@ -9,7 +9,8 @@ Angular's template syntax extends HTML and Javascript
 *ngFor 
 : <div *ngFor="let product of products"></div>
 : The div will repeat itself for each product in the product list.
-: *ngFor is a "structural directive". Structual directives shape or reshape the DOM's structure. Any directive with an * is a structural directive 
+: *ngFor is a "structural directive". Structual directives shape or reshape the DOM's structure. Any directive with an * is a structural directive
+: With the *ngFor directive you can assign the index of each item to a variable - *ngFor="let product of products; index as productId"
 
 *ngIf
 : <p *ngIf="product.description"> Description: {{ product.description }} </p>
@@ -68,6 +69,51 @@ Use property binding to pass data as input to the child component
 # Routing
 
 ## Registering a Route
+
+* A route associates one or more URL paths with a component. Add a route for the new component in the app.module.ts file:
+
+```
+@NgModule({
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot([
+      { path: '', component: ProductListComponent },
+      { path: 'products/:productId', component: ProductDetailsComponent },
+    ])
+  ],
+  ```
+
+* Use the RouterLink directive to define a link in the component template. 
+* In your anchor tag - [routerLink]="['products', productId]"
+
+## Using Route Information
+
+* In the new route's component, inject ActivatedRouter into the constructor:
+```
+export class ProductDetailsComponent implements OnInit {
+  product;
+
+  constructor(
+    private route: ActivatedRoute,
+  ) { }
+
+}
+```
+* This ActivatedRoute is specific to each routed component and contains information about the route, its parameters, and additional info
+* In the ngInit() method, subscribe to route params and fetch the product based on productId:
+```
+ntOnInit() {
+  this.route.paramMap.subscribe(params => {
+    this.product = products[+params.get('productId')]
+  })
+}
+* The route parameters correspond to the path variables defined in the route (in this case, in the product-list.component.html)
+
+# Notes
+
+* Angular calls ngOnInit() shortly after creating a component
+
 
 
 
