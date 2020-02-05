@@ -108,7 +108,22 @@ ntOnInit() {
     this.product = products[+params.get('productId')]
   })
 }
+```
+
 * The route parameters correspond to the path variables defined in the route (in this case, in the product-list.component.html)
+
+# Managing Data
+
+## Services
+
+A service is an instance of a class that can be made available to any part of your application using Angular's "dependency injection system." Services are the place where you share data between parts of your application.
+
+* Generate a service - ng g c serviceName (cart)
+* Include a place to store data here (array, object, ect) along with methods to manipulate that data
+* Import this service into any components that you would like to have access to this data - import { CartService } from '../cart.service'
+* Inject the service into the component's constructor - private cartService: CartService
+* Define methods in the component that use the service's methods - this.cartService.addToCart(product)
+
 
 # Notes
 
