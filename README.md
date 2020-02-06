@@ -126,7 +126,57 @@ A service is an instance of a class that can be made available to any part of yo
 
 # Forms
 
+Forms in Angular take the standard capabilities of the HTML based forms and add an orchestration layer to help with creating custom form controls, and to supply great validation experiences. There are two parts to an Angular Reactive form, the objects that live in the component to store and manage the form, and the visualization of the form that lives in the template.
+
 ## Define the Form Model
+
+The form model is the source of truth for the status of the form and is defined in the component class. Angular's FormBuilder service provides convenient methods for generating controls. Import and inject this service before you can use it. 
+
+* In your component class, define a form property to store the form model - checkoutForm;
+* Use FormBuilder group() method to set the property (checkoutForm) with a form model containing one or more fields:
+```
+this.checkoutForm = this.formBuilder.group({
+  name: '',
+  address: ''
+});
+```
+* We have defined the form model in the component class, now to reflect the model in the view, we need to create a checkout form in the template
+
+## Create a Form in the Template
+
+* In your component template, add an HTML form
+* Use a formGroup property binding to bind the checkoutForm to the HTML form tag in the template, and add a standard submit button:
+``` 
+<form [formGroup]="checkoutForm">
+  <button class="button" type="submit"> Submit </button>
+</form>
+```
+* On the HTML form tag, use an ngSubmit event binding to listen for the form submission and call a method (onSubmit()) with the checkoutForm value:
+```
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)"></form>
+```
+* Add your input fields and use the formControlName attribute binding to bind the checkoutForm form controls to their input fields:
+```
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+
+  <div>
+    <label for="name">
+      Name
+    </label>
+    <input id="name" type="text" formControlName="name">
+  </div>
+
+  <div>
+    <label for="address">
+      Address
+    </label>
+    <input id="address" type="text" formControlName="address">
+  </div>
+
+  <button class="button" type="submit">Purchase</button>
+
+</form>
+```
 
 
 
